@@ -5,6 +5,14 @@ include 'includes/manager.php';
 include 'includes/auth.php';
 include 'includes/database.php';
 
+/* Start Database */
+
+$database = Database::connect(db_server, db_name, db_username, db_password);
+
+if ($database == null) {
+    redirect(PAGES['Error']);
+}
+
 ?>
 
 
@@ -47,21 +55,21 @@ include 'includes/database.php';
                             <div class="collapse navbar-collapse" id="main">
                                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Home</a>
+                                        <a class="nav-link" href="index.php"><?= $resource['Home'] ?></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Jobs</a>
+                                        <a class="nav-link" href="jobs.php"><?= $resource['Jobs'] ?></a>
                                     </li>
                                     <?php if (Authenticate::isAuth()) { ?>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Profile</a>
+                                        <a class="nav-link" href="profile.php"><?= $resource['Profile'] ?></a>
                                     </li>
                                     <?php } ?>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">About Us</a>
+                                        <a class="nav-link" href="aboutus.php"><?= $resource['AboutUs'] ?></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Contact Us</a>
+                                        <a class="nav-link" href="contactus.php"><?= $resource['ContactUs'] ?></a>
                                     </li>
                                 </ul>
                             </div>
@@ -94,5 +102,16 @@ include 'includes/database.php';
                 </nav>
             </div>
         </div>
+        <?php if (isset($banner)) { ?>
+        <div class="container">
+            <div class="banner">
+                <h1 class="fs-4">About Us</h1>
+                <p class="fs-6 text-black-50">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry.
+                </p>
+            </div>
+        </div>
+        <?php } ?>
     </div>
     <!-- Start Brand -->

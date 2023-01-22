@@ -14,16 +14,16 @@
                     <h1 class="fs-3 text-white">Quick Links</h1>
                     <ul class="list-unstyled mt-4">
                         <li class="my-2">
-                            <a class="text-decoration-none text-white">Home</a>
+                            <a class="text-decoration-none text-white" href="index.php">Home</a>
                         </li>
                         <li class="my-2">
-                            <a class="text-decoration-none text-white">Jobs</a>
+                            <a class="text-decoration-none text-white" href="jobs.php">Jobs</a>
                         </li>
                         <li class="my-2">
-                            <a class="text-decoration-none text-white">About Us</a>
+                            <a class="text-decoration-none text-white" href="aboutus.php">About Us</a>
                         </li>
                         <li class="my-2">
-                            <a class="text-decoration-none text-white">Contact Us</a>
+                            <a class="text-decoration-none text-white" href="contactus.php">Contact Us</a>
                         </li>
                     </ul>
                 </div>
