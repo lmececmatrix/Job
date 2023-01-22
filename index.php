@@ -7,6 +7,37 @@ if ($database == null) {
     redirect(PAGES['Error']);
 }
 
+$email = $message = '';
+$errEmail = $errMessage = $statusMessage = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $status = true;
+
+    if (isset($_POST['email']) && $_POST['email'] != '') {
+        $email = $_POST['email'];
+    } else {
+        $errEmail = 'Please Enter The Email';
+        $status = false;
+    }
+
+    if (isset($_POST['message']) && $_POST['message'] != '') {
+        $message = $_POST['message'];
+    } else {
+        $errMessage = 'Please Enter The Message';
+        $status = false;
+    }
+
+    if ($status) {
+        $database->execute('INSERT INTO `message` (`id`, `email`, `message`) VALUES (NULL, :email, :message);', [
+            ':email' => $email,
+            ':message' => $message
+        ]);
+
+        $statusMessage = 'Complete To Send';
+    }
+}
+
+
 $brands = $database->query('SELECT * FROM Brands', null);
 
 if ($brands != null) {
@@ -27,84 +58,23 @@ if ($brands != null) {
 
 <div class="container my-5">
     <div class="row justify-content-center align-items-center">
+        <?php
+        $categories = $database->query('SELECT * From category where language=:lang', [
+            ':lang' => $language
+        ]);
+
+        for ($i = 0; $i < count($categories); $i++) {
+        ?>
+
         <div class="col-4 col-lg-2 my-2">
             <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-computer icon text-color"></i>
+                <i class="<?php echo $categories[$i]['code']; ?> icon text-color"></i>
                 <h1 class="text-center text-color mt-2 title">
-                    IT And Development
+                    <?php echo $categories[$i]['name']; ?>
                 </h1>
             </div>
         </div>
-        <div class="col-4 col-lg-2 my-2">
-            <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-screwdriver-wrench icon text-color"></i>
-                <h1 class="text-center text-color mt-2 title">Engineer</h1>
-            </div>
-        </div>
-        <div class="col-4 col-lg-2 my-2">
-            <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-user-doctor icon text-color"></i>
-                <h1 class="text-center text-color mt-2 title">Engineer</h1>
-            </div>
-        </div>
-        <div class="col-4 col-lg-2 my-2">
-            <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-dollar-sign icon text-color"></i>
-                <h1 class="text-center text-color mt-2 title">Engineer</h1>
-            </div>
-        </div>
-        <div class="col-4 col-lg-2 my-2">
-            <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-computer icon text-color"></i>
-                <h1 class="text-center text-color mt-2 title">
-                    IT And Development
-                </h1>
-            </div>
-        </div>
-        <div class="col-4 col-lg-2 my-2">
-            <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-screwdriver-wrench icon text-color"></i>
-                <h1 class="text-center text-color mt-2 title">Engineer</h1>
-            </div>
-        </div>
-        <div class="col-4 col-lg-2 my-2">
-            <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-user-doctor icon text-color"></i>
-                <h1 class="text-center text-color mt-2 title">Engineer</h1>
-            </div>
-        </div>
-        <div class="col-4 col-lg-2 my-2">
-            <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-dollar-sign icon text-color"></i>
-                <h1 class="text-center text-color mt-2 title">Engineer</h1>
-            </div>
-        </div>
-        <div class="col-4 col-lg-2 my-2">
-            <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-computer icon text-color"></i>
-                <h1 class="text-center text-color mt-2 title">
-                    IT And Development
-                </h1>
-            </div>
-        </div>
-        <div class="col-4 col-lg-2 my-2">
-            <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-screwdriver-wrench icon text-color"></i>
-                <h1 class="text-center text-color mt-2 title">Engineer</h1>
-            </div>
-        </div>
-        <div class="col-4 col-lg-2 my-2">
-            <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-user-doctor icon text-color"></i>
-                <h1 class="text-center text-color mt-2 title">Engineer</h1>
-            </div>
-        </div>
-        <div class="col-4 col-lg-2 my-2">
-            <div class="d-flex flex-column justify-content-center">
-                <i class="fa-solid fa-dollar-sign icon text-color"></i>
-                <h1 class="text-center text-color mt-2 title">Engineer</h1>
-            </div>
-        </div>
+        <?php } ?>
     </div>
 </div>
 <div class="container my-5 text-center">
@@ -130,20 +100,20 @@ if ($brands != null) {
                         <div class="d-flex justify-content-between my-lg-1 align-items-center">
                             <h1 class="fs-6"><?php echo $jobs[$i]['title']; ?></h1>
                             <div class="d-flex align-content-center">
+
+                                <?php
+                                    $type = $database->query('SELECT * FROM type Where id=:id And language=:lang', [
+                                        ':id' => $jobs[$i]['type'],
+                                        ':lang' => $language
+                                    ]);
+
+                                    if ($type != null) { ?>
                                 <p
                                     class="fs-5 m-0 mx-3 border-color d-flex justify-content-center align-items-center p-2 rounded-5 text-color fs-6">
-                                    <?php
-                                        $type = $database->query('SELECT * FROM type Where id=:id And language=:language', [
-                                            ':id' => $jobs[$i]['type'],
-                                            ':language' => $language
-                                        ]);
-
-                                        if ($type != null) {
-                                            echo $type[0]['name'];
-                                        }
-
-                                        ?>
+                                    <?php echo $type[0]['name']; ?>
                                 </p>
+                                <?php } ?>
+
                                 <button class="btn btn-primary button fs-6">Apply</button>
                             </div>
                         </div>
@@ -163,78 +133,31 @@ if ($brands != null) {
             <img class="img-fluid" src="images/contact.jpg" />
         </div>
         <div class="col-12 col-md-6">
-            <form class="d-flex flex-column h-100">
-                <div class="mb-3">
+            <form class="d-flex flex-column h-100" method="post"
+                action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                <div class=" mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="name@example.com" />
+                    <input type="email" class="form-control" name="email" placeholder="name@example.com"
+                        value="<?php echo $email; ?>" />
+                    <span class="text-danger">
+                        <?php echo $errEmail; ?>
+                    </span>
                 </div>
-                <div class="mb-3 h-75 overflow-hidden">
+
+                <div class="mb-3 h-50 overflow-hidden">
                     <label for="message" class="form-label">Message</label>
-                    <textarea class="form-control h-100" id="message" rows="3"></textarea>
+                    <textarea class="form-control h-75" name="message" rows="3"><?php echo $message; ?></textarea>
+                    <span class="text-danger">
+                        <?php echo $errMessage; ?>
+                    </span>
                 </div>
-                <button class="btn btn-primary button">Send</button>
+                <!-- <button class="btn btn-primary button">Send</button> -->
+                <div>
+                    <input type="submit" class="btn button" value="Send">
+                </div>
             </form>
         </div>
     </div>
 </div>
-<div class="bg-color">
-    <div class="container">
-        <div class="p-5">
-            <div class="row justify-content-center">
-                <div class="col-6 col-lg-4">
-                    <img class="img-fluid logo mb-2"
-                        src="https://scontent.fcai22-2.fna.fbcdn.net/v/t39.30808-6/275634928_4869720069759957_1221003474556286464_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=rw8DhSBJPVEAX9WJ11e&_nc_ht=scontent.fcai22-2.fna&oh=00_AfAmilRF2IT8RFAiYFylNjBsJ4cG1b6F2UB-Xk2B_Q8ejQ&oe=63CADCB2" />
-                    <p class="text-white">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
-                        aut eius maiores suscipit pariatur? Maxime, debitis
-                        consequuntur!
-                    </p>
-                </div>
-                <div class="col-6 col-lg-4">
-                    <h1 class="fs-3 text-white">Quick Links</h1>
-                    <ul class="list-unstyled mt-4">
-                        <li class="my-2">
-                            <a class="text-decoration-none text-white">Home</a>
-                        </li>
-                        <li class="my-2">
-                            <a class="text-decoration-none text-white">Jobs</a>
-                        </li>
-                        <li class="my-2">
-                            <a class="text-decoration-none text-white">About Us</a>
-                        </li>
-                        <li class="my-2">
-                            <a class="text-decoration-none text-white">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-6 col-lg-4 my-2 m-md-0">
-                    <h1 class="fs-3 text-white">Social Links</h1>
-                    <ul class="list-unstyled d-flex mt-4">
-                        <li>
-                            <a class="text-decoration-none text-white"><i
-                                    class="fa-brands fa-facebook fs-4 m-2"></i></a>
-                        </li>
-                        <li>
-                            <a class="text-decoration-none text-white"><i
-                                    class="fa-brands fa-whatsapp fs-4 m-2"></i></a>
-                        </li>
-                        <li>
-                            <a class="text-decoration-none text-white"><i
-                                    class="fa-brands fa-instagram fs-4 m-2"></i></a>
-                        </li>
-                        <li>
-                            <a class="text-decoration-none text-white"><i
-                                    class="fa-brands fa-linkedin-in fs-4 m-2"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="js/bootstrap.bundle.js"></script>
-<script src="js/all.js"></script>
-<script src="js/main.js"></script>
-</body>
 
-</html>
+<?php include 'includes/footer.php'; ?>
