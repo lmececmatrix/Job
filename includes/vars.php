@@ -1,5 +1,8 @@
 <?php
 
+/* Start Language */
+define('language', 'en');
+
 /* Start Database */
 define('db_server', 'localhost');
 define('db_name', 'jobs');

@@ -5,8 +5,6 @@ include 'includes/manager.php';
 include 'includes/auth.php';
 include 'includes/database.php';
 
-
-
 ?>
 
 
