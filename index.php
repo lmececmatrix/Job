@@ -120,29 +120,7 @@ include 'includes/getBanner.php';
             <img class="img-fluid" src="images/contact.jpg" />
         </div>
         <div class="col-12 col-md-6">
-            <form class="d-flex flex-column h-100" method="post"
-                action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-                <div class=" mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" name="email" placeholder="name@example.com"
-                        value="<?php echo $email; ?>" />
-                    <span class="text-danger">
-                        <?php echo $errEmail; ?>
-                    </span>
-                </div>
-
-                <div class="mb-3 h-50 overflow-hidden">
-                    <label for="message" class="form-label">Message</label>
-                    <textarea class="form-control h-75" name="message" rows="3"><?php echo $message; ?></textarea>
-                    <span class="text-danger">
-                        <?php echo $errMessage; ?>
-                    </span>
-                </div>
-                <!-- <button class="btn btn-primary button">Send</button> -->
-                <div>
-                    <input type="submit" class="btn button" value="Send">
-                </div>
-            </form>
+            <?php include 'includes/contact.php'; ?>
         </div>
     </div>
 </div>

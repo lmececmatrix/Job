@@ -6,6 +6,15 @@ function redirect($page)
     exit();
 }
 
+function cdata($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+
+    return $data;
+}
+
 function isCookie()
 {
     setcookie('test', '', time() + (86400 * 30), '/');

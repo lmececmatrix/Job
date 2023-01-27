@@ -20,13 +20,13 @@ class Database
         return $database;
     }
 
-    public function in($query, $params)
+    public function in(&$query, &$values)
     {
         $stmt = $this->connection->prepare($query);
 
-        if ($params != null) {
-            foreach ($params as $name => $value) {
-                $stmt->bindParam($name, $value);
+        if ($values != null) {
+            foreach ($values as $name => $value) {
+                $stmt->bindValue($name, $value);
             }
         }
 
@@ -39,11 +39,12 @@ class Database
         $stmt->execute();
     }
 
-    public function query($query, $params)
+    public function query($query, $values)
     {
-        $stmt = $this->in($query, $params);
-        $stmt->execute();
+        $stmt = $this->in($query, $values);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $stmt->execute();
+
 
         return $stmt->fetchAll();
     }

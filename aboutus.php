@@ -1,6 +1,6 @@
 <?php
-
-$banner = true;
+$banner = 'AboutUs';
+$bannerDescription = 'Banner';
 
 include 'includes/header.php';
 include 'includes/getBanner.php';

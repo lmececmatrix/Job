@@ -1,19 +1,4 @@
-<?php
-
-include 'includes/vars.php';
-include 'includes/manager.php';
-include 'includes/auth.php';
-include 'includes/database.php';
-
-/* Start Database */
-
-$database = Database::connect(db_server, db_name, db_username, db_password);
-
-if ($database == null) {
-    redirect(PAGES['Error']);
-}
-
-?>
+<?php include_once 'includes/library.php'; ?>
 
 
 <!DOCTYPE html>
@@ -105,10 +90,9 @@ if ($database == null) {
         <?php if (isset($banner)) { ?>
         <div class="container">
             <div class="banner">
-                <h1 class="fs-4">About Us</h1>
+                <h1 class="fs-4"><?= $resource[$banner] ?></h1>
                 <p class="fs-6 text-black-50">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry.
+                    <?= $resource[$bannerDescription] ?>
                 </p>
             </div>
         </div>
