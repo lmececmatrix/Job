@@ -19,6 +19,68 @@
 </head>
 
 <body>
+    <form method="post" action="<?php echo cdata($_SERVER['PHP_SELF']); ?>">
+        <!-- Modal -->
+        <div class="modal fade" id="login" tabindex="-1" aria-labelledby="login" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="Login">Login</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Username</label>
+                            <input type="text" class="form-control" placeholder="Enter Username" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Password</label>
+                            <input type="password" class="form-control" placeholder="Enter Password" />
+                        </div>
+                        <input type="hidden" value="login" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button">Login</button>
+                        <button type="button" class="btn btn-secondary button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form method="post" action="<?php echo cdata($_SERVER['PHP_SELF']); ?>">
+        <!-- Modal -->
+        <div class="modal fade" id="register" tabindex="-1" aria-labelledby="register" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Register</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Username</label>
+                            <input type="text" class="form-control" placeholder="Enter Username" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Password</label>
+                            <input type="password" class="form-control" placeholder="Enter Password" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" placeholder="Enter Password" />
+                        </div>
+                        <input type="hidden" value="register" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
     <div class="header">
         <div class="nav-bar">
             <div class="container">
@@ -35,7 +97,6 @@
                                 aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-
                             <!-- Start Menu -->
                             <div class="collapse navbar-collapse" id="main">
                                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -58,9 +119,12 @@
                                     </li>
                                 </ul>
                             </div>
+
                             <?php if (!Authenticate::isAuth()) { ?>
-                            <button class="btn btn-primary ms-1 button">Login</button>
-                            <button class="btn btn-primary ms-1 button">Sign Up</button>
+                            <button class="btn btn-primary ms-1 button" data-bs-toggle="modal"
+                                data-bs-target="#login">Login</button>
+                            <button class="btn btn-primary ms-1 button" data-bs-toggle="modal"
+                                data-bs-target="#register">Sign Up</button>
                             <?php } ?>
                             <!-- Start Dialog -->
                             <div class="modal fade" id="login" tabindex="-1" aria-labelledby="login" aria-hidden="true">
@@ -83,6 +147,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </nav>
             </div>

@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <textarea class="form-control h-75" name="message" rows="3"><?php echo $message; ?></textarea>
         <span class="text-danger"><?php echo $messageError; ?></span>
     </div>
-    <?php if ($statusMessage != '') { ?>
+    <?php if (isset($statusMessage)) { ?>
     <span class="text-primary text-color"><?= $resource['FormContactStatus'] ?></span>
     <?php } ?>
     <button class=" btn btn-primary button">Send</button>
